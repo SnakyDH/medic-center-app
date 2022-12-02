@@ -3,11 +3,11 @@ import bcrypt from 'bcrypt';
 export const encrypt = async (data) => {
   return await bcrypt.hash(data, 10);
 };
-export const compare = async (data, encrypted) => {
+export const comp = async (data, encrypted) => {
   bcrypt.compare(data, encrypted, (err, data) => {
-    if (err) {
-      throw err;
-    }
+    //if error than throw error
+    if (err) throw err;
+    //if both match than you can do anything
     if (data) {
       return true;
     } else {
