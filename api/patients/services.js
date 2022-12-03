@@ -31,7 +31,7 @@ class Patient {
   }
   async findAll() {
     return await pool.query(
-      'SELECT * FROM patients as p join users as u on(u.cc=p.cc_user)'
+      'SELECT u.cc, u.name, u.phone, u.email, p.age, p.weight, p.height, p.birth FROM patients as p join users as u on(u.cc=p.cc_user)'
     );
   }
   async updateOne(id, newUser) {
