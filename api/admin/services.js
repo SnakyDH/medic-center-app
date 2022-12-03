@@ -1,5 +1,4 @@
 import { pool } from '../../services/dbConnection.js';
-import { encrypt } from '../../utils/password.js';
 class Admin {
   constructor() {
     this.role = 1;

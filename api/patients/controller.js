@@ -10,20 +10,21 @@ export const getPatient = async (req, res) => {
   try {
     const { id } = req.params;
     const data = await patient.findOne(id);
-    let user = {
-      cc: data.rows[0].cc,
-      name: data.rows[0].name,
-      age: data.rows[0].age,
-      phone: data.rows[0].phone,
-      email: data.rows[0].email,
-      height: data.rows[0].height,
-      weight: data.rows[0].weight,
-      birth: data.rows[0].birth,
-    };
-    if (!user) {
-      res.status(404).json({ message: 'User not found' });
+    if (data.rowCount !== 0) {
+      let user = {
+        cc: data.rows[0].cc,
+        name: data.rows[0].name,
+        age: data.rows[0].age,
+        phone: data.rows[0].phone,
+        email: data.rows[0].email,
+        height: data.rows[0].height,
+        weight: data.rows[0].weight,
+        birth: data.rows[0].birth,
+        role: data.rows[0].role,
+      };
+      res.status(200).json(user);
     }
-    res.status(200).json(user);
+    res.status(404).json({ message: 'User not found' });
   } catch (error) {
     console.error(error.message);
   }

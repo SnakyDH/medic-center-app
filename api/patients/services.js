@@ -25,7 +25,13 @@ class Patient {
   }
   async findOne(cc) {
     return await pool.query(
-      `SELECT * FROM Patients as p join users as u on(u.cc=p.cc_user)
+      `SELECT
+      *
+      FROM Patients as p
+      JOIN users as u
+      ON(u.cc=p.cc_user)
+      JOIN user_role as r
+      ON (u.id_user_role=r.id)
       where ${cc}=u.cc`
     );
   }
