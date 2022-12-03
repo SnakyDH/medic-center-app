@@ -1,12 +1,13 @@
 -- create database  medic_center
 -- use medic_center
 CREATE TABLE user_role(
-        id serial not null, 
+        id serial not null,
         role varchar(45) not null,
         PRIMARY KEY(id)
 );
-insert into user_role (role) 
-        values ('administrator'),
+insert into user_role (role)
+        values
+        ('administrator'),
         ('medic'),
         ('patient');
 
@@ -16,7 +17,7 @@ CREATE TABLE users(
         password varchar(70) not null,
         phone varchar(10) not null,
         email varchar(45) not null,
-	id_user_role int not null,
+	      id_user_role int not null,
         FOREIGN KEY (id_user_role) REFERENCES user_role(id)
              MATCH FULL ON UPDATE CASCADE,
         PRIMARY KEY(cc)
@@ -24,9 +25,9 @@ CREATE TABLE users(
 
 
 CREATE TABLE info_password(
-        cc_user int not null, 
-        answer varchar(70) not null,
+        cc_user int not null,
         question varchar(70) not null,
+        answer varchar(70) not null,
         FOREIGN KEY (cc_user) REFERENCES users(cc),
         PRIMARY KEY(cc_user)
 );
@@ -55,11 +56,20 @@ CREATE TABLE clinic_history(
 
 
 CREATE TABLE specialties(
-        id int2 not null,
-        name varchar(50) not null,
+        id serial not null,
+        speciality varchar(50) not null,
         PRIMARY KEY(id)
 );
-
+insert into specialties (speciality) values('Pediatria');
+insert into specialties (speciality) values('Medicina interna');
+insert into specialties (speciality) values('Urologia');
+insert into specialties (speciality) values('Neurología');
+insert into specialties (speciality) values('Hematologia');
+insert into specialties (speciality) values('Hepatologia');
+insert into specialties (speciality) values('Oncologia');
+insert into specialties (speciality) values('Neumologia');
+insert into specialties (speciality) values('Cardiologia');
+insert into specialties (speciality) values('Psiquiatria');
 
 
 CREATE TABLE doctors(
