@@ -32,11 +32,7 @@ export const getPatient = async (req, res) => {
 export const createPatients = async (req, res) => {
   let pass = await encrypt(req.body.password);
   const user = req.body;
-  console.log('User 1');
-  console.log(user);
   user.password = pass;
-  console.log('User 2');
-  console.log(user);
   await patient.insertOne(user);
   res.status(201).json({ message: 'User created successfully' });
 };
@@ -45,11 +41,11 @@ export const updatePatient = async (req, res) => {
     const { id } = req.params;
     const newUser = req.body;
     const user = await patient.findOne(id);
-    if (!user) {
-      res.status(404).json({ message: 'User not found' });
+    if (user.rowCount !== 0) {
+      await patient.updateOne(id, newUser);
+      res.status(200).json({ message: 'User updated successfully' });
     }
-    await patient.updateOne(id, newUser);
-    res.status(200).json({ message: 'User updated successfully' });
+    res.status(404).json({ message: 'User not found' });
   } catch (error) {
     console.error(error.message);
   }
@@ -58,11 +54,11 @@ export const deletePatient = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await patient.findOne(id);
-    if (!user) {
-      res.status(404).json({ message: 'User not found' });
+    if (user.rowCount !== 0) {
+      await patient.deleteOne(id);
+      res.status(200).json({ message: 'User deleted successfully' });
     }
-    await patient.deleteOne(id);
-    res.status(200).json({ message: 'User deleted successfully' });
+    res.status(404).json({ message: 'User not found' });
   } catch (error) {
     console.error(error.message);
   }
