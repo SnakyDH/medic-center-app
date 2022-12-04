@@ -1,4 +1,4 @@
-import { pool } from '../../services/dbConnection.js';
+import { pool } from '../../utils/dbConnection.js';
 class Admin {
   constructor() {
     this.role = 1;
