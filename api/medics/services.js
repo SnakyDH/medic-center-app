@@ -37,8 +37,7 @@ class Medic {
       JOIN doctors as d
       ON (u.cc=d.cc_user)
       JOIN specialties as s
-      on (d.id_specialties=s.id)
-      ;`
+      on (d.id_specialties=s.id);`
     );
   }
   async updateOne(cc, newUser) {

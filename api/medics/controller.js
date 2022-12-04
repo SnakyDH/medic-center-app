@@ -2,6 +2,18 @@ import Medic from './services.js';
 import { encrypt } from '../../utils/password.js';
 
 const medic = new Medic();
+
+export const getMedics = async (req, res) => {
+  try {
+    const data = await medic.findAll();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Medics not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
 export const getMedic = async (req, res) => {
   try {
     const { id } = req.params;

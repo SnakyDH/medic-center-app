@@ -1,5 +1,6 @@
 import Router from 'express';
 import {
+  getMedics,
   getMedic,
   createMedics,
   updateMedic,
@@ -8,6 +9,7 @@ import {
 
 const router = Router();
 
+router.get('/medics', getMedics);
 router.get('/medic/:id', getMedic);
 router.post('/medics', createMedics);
 router.patch('/medic/:id', updateMedic);
