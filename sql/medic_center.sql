@@ -59,18 +59,9 @@ CREATE TABLE specialties(
         id serial not null,
         speciality varchar(50) not null,
         PRIMARY KEY(id)
-);
-insert into specialties (speciality) values('Pediatria');
-insert into specialties (speciality) values('Medicina interna');
-insert into specialties (speciality) values('Urologia');
-insert into specialties (speciality) values('Neurología');
-insert into specialties (speciality) values('Hematologia');
-insert into specialties (speciality) values('Hepatologia');
-insert into specialties (speciality) values('Oncologia');
-insert into specialties (speciality) values('Neumologia');
-insert into specialties (speciality) values('Cardiologia');
-insert into specialties (speciality) values('Psiquiatria');
+)
 
+insert into specialties (speciality) values ('pediatria'),('medicina interna'),('urologia'),('neurología'),('hematologia'),('hepatologia'),('oncologia'),('neumologia'),('cardiologia'),('psiquiatria');
 
 CREATE TABLE doctors(
         cc_user int not null,
