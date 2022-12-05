@@ -12,7 +12,6 @@ export const getAdmin = async (req, res) => {
         age: data.rows[0].age,
         phone: data.rows[0].phone,
         email: data.rows[0].email,
-        speciality: data.rows[0].speciality,
         role: data.rows[0].role,
       };
       res.status(200).json(user);

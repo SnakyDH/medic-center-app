@@ -1,5 +1,7 @@
 import { pool } from '../../utils/dbConnection.js';
 import Speciality from '../../services/Speciality.js';
+import User from '../../services/User.js';
+const user = new User();
 const speciality = new Speciality();
 class Medic {
   constructor() {
@@ -11,7 +13,7 @@ class Medic {
       `INSERT INTO users (cc, name, password, phone, email, id_user_role)
       VALUES (${cc},'${name}','${password}','${phone}','${email}',${this.role});`
     );
-    const data = await speciality.getSpeciality(specialityTitle);
+    const data = await speciality.getSpecialityT(specialityTitle);
     const id_especiality = data.rows[0].id;
     await pool.query(
       `INSERT INTO doctors (cc_user,id_specialties)
@@ -27,6 +29,8 @@ class Medic {
       ON(u.cc=d.cc_user)
       JOIN user_role as r
       ON (u.id_user_role=r.id)
+      JOIN specialties as s
+      ON (d.id_specialties=s.id)
       where ${cc}=u.cc;`
     );
   }
@@ -37,7 +41,7 @@ class Medic {
       JOIN doctors as d
       ON (u.cc=d.cc_user)
       JOIN specialties as s
-      on (d.id_specialties=s.id);`
+      ON (d.id_specialties=s.id);`
     );
   }
   async updateOne(cc, newUser) {
