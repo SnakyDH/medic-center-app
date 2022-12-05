@@ -12,7 +12,7 @@ const router = Router();
 router.get('/medics', getMedics);
 router.get('/medic/:id', getMedic);
 router.post('/medics', createMedics);
-router.patch('/medic/:id', updateMedic);
+router.put('/medic/:id', updateMedic);
 router.delete('/medic/:id', deleteMedic);
 
 export default router;
