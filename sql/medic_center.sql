@@ -59,7 +59,7 @@ CREATE TABLE specialties(
         id serial not null,
         speciality varchar(50) not null,
         PRIMARY KEY(id)
-)
+);
 
 insert into specialties (speciality) values ('pediatria'),('medicina interna'),('urologia'),('neurología'),('hematologia'),('hepatologia'),('oncologia'),('neumologia'),('cardiologia'),('psiquiatria');
 
