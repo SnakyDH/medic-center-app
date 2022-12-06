@@ -1,0 +1,41 @@
+{
+  "name": "medic-center-backend",
+  "version": "1.0.0",
+  "description": "A backend project simulating a medical center app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SnakyDH/medic-center-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SnakyDH/medic-center-backend/issues"
+  },
+  "homepage": "https://github.com/SnakyDH/medic-center-backend#readme",
+  "dependencies": {
+    "@hapi/boom": "^10.0.0",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1"
+  }
+}
