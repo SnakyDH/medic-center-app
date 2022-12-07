@@ -22,7 +22,6 @@ export const getMedic = async (req, res) => {
       let user = {
         cc: data.rows[0].cc,
         name: data.rows[0].name,
-        age: data.rows[0].age,
         phone: data.rows[0].phone,
         email: data.rows[0].email,
         speciality: data.rows[0].speciality,
