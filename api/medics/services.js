@@ -1,14 +1,25 @@
 import { pool } from '../../utils/dbConnection.js';
 import Speciality from '../../services/Speciality.js';
 import User from '../../services/User.js';
+import Recovery from '../../services/Recovery.password.js';
 const user = new User();
 const speciality = new Speciality();
+const recovery = new Recovery();
 class Medic {
   constructor() {
     this.role = 2;
     this.max_medics = 10;
   }
-  async insertOne({ cc, name, password, phone, email, specialityTitle }) {
+  async insertOne({
+    cc,
+    name,
+    password,
+    phone,
+    email,
+    specialityTitle,
+    question,
+    answer,
+  }) {
     await pool.query(
       `INSERT INTO users (cc, name, password, phone, email, id_user_role)
       VALUES (${cc},'${name}','${password}','${phone}','${email}',${this.role});`
@@ -19,6 +30,7 @@ class Medic {
       `INSERT INTO doctors (cc_user,id_specialties)
       VALUES (${cc},${id_especiality});`
     );
+    await recovery.insertOne({ cc, question, answer });
   }
   async findOne(cc) {
     return await pool.query(

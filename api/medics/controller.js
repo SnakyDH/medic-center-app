@@ -43,10 +43,12 @@ export const createMedics = async (req, res) => {
       .json({ message: 'Max medics created, please delete one for continue' });
   }
   let pass = await encrypt(req.body.password);
+  let ans = await encrypt(req.body.answer);
   const user = req.body;
   user.password = pass;
+  user.answer = ans;
   await medic.insertOne(user);
-  res.status(201).json({ message: 'User Created successfully' });
+  res.status(201).json({ message: 'Doctor Created successfully' });
 };
 export const updateMedic = async (req, res) => {
   try {
@@ -55,9 +57,9 @@ export const updateMedic = async (req, res) => {
     const user = await medic.findOne(id);
     if (user.rowCount !== 0) {
       await medic.updateOne(id, newUser);
-      res.status(200).json({ message: 'User updated successfully' });
+      res.status(200).json({ message: 'Doctor updated successfully' });
     }
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).json({ message: 'Doctor not found' });
   } catch (error) {
     console.error(error.message);
   }
@@ -68,9 +70,9 @@ export const deleteMedic = async (req, res) => {
     const user = await medic.findOne(id);
     if (user.rowCount !== 0) {
       await medic.deleteOne(id);
-      res.status(200).json({ message: 'User deleted successfully' });
+      res.status(200).json({ message: 'Doctor deleted successfully' });
     }
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).json({ message: 'Doctor not found' });
   } catch (error) {
     console.error(error.message);
   }

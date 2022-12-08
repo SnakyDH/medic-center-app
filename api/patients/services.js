@@ -1,4 +1,6 @@
 import { pool } from '../../utils/dbConnection.js';
+import Recovery from '../../services/Recovery.password.js';
+const recovery = new Recovery();
 class Patient {
   constructor() {
     this.role = 3;
@@ -13,6 +15,8 @@ class Patient {
     weight,
     height,
     birth,
+    question,
+    answer,
   }) {
     await pool.query(
       `INSERT INTO users (cc, name, password, phone, email, id_user_role)
@@ -22,6 +26,7 @@ class Patient {
       `INSERT INTO patients (cc_user, age, weight, height, birth)
     VALUES (${cc},${age},${weight},${height},'${birth}');`
     );
+    await recovery.insertOne({ cc, question, answer });
   }
   async findOne(cc) {
     return await pool.query(
