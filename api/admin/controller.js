@@ -1,3 +1,4 @@
+import { encrypt } from '../../utils/password.js';
 import Admin from './services.js';
 
 const admin = new Admin();
@@ -16,7 +17,18 @@ export const getAdmin = async (req, res) => {
       };
       res.status(200).json(user);
     }
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).json({ message: 'Admin not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+export const createAdmin = async (req, res) => {
+  try {
+    let pass = await encrypt(req.body.password);
+    const user = req.body;
+    user.password = pass;
+    await admin.insertOne(user);
+    res.status(201).json({ message: 'Admin created successfully' });
   } catch (error) {
     console.error(error.message);
   }
