@@ -97,3 +97,42 @@ CREATE TABLE visit_status(
         PRIMARY KEY(id_visits)
 );
 
+ALTER TABLE info_password 
+DROP CONSTRAINT info_password_cc_user_fkey,
+ADD CONSTRAINT info_password_cc_user_fkey 
+	FOREIGN KEY (cc_user) 
+	REFERENCES users(cc) 
+	MATCH FULL ON DELETE CASCADE;
+
+ALTER TABLE users 
+DROP CONSTRAINT users_id_user_role_fkey,
+ADD CONSTRAINT users_id_user_role_fkey 
+	FOREIGN KEY (id_user_role) 
+	REFERENCES user_role(id)
+        MATCH FULL ON DELETE CASCADE;
+
+ALTER TABLE doctors 
+DROP CONSTRAINT doctors_cc_user_fkey, 
+DROP CONSTRAINT doctors_id_specialties_fkey, 
+ADD CONSTRAINT doctors_cc_user_fkey 
+	FOREIGN KEY (cc_user) REFERENCES users(cc)
+        MATCH FULL ON DELETE CASCADE,
+ADD CONSTRAINT doctors_id_specialties_fkey 
+        FOREIGN KEY (id_specialties) REFERENCES specialties(id)
+        MATCH FULL ON DELETE CASCADE;
+
+ALTER TABLE visits
+DROP CONSTRAINT visits_cc_doctors_fkey,
+DROP CONSTRAINT visits_cc_patients_fkey,
+ADD CONSTRAINT visits_cc_patients_fkey
+        FOREIGN KEY (cc_patients) REFERENCES patients(cc_user)
+             MATCH FULL ON DELETE CASCADE,
+ADD CONSTRAINT visits_cc_doctors_fkey
+        FOREIGN KEY (cc_doctors) REFERENCES doctors(cc_user)
+             MATCH FULL ON DELETE CASCADE;
+
+ALTER TABLE visit_status
+DROP CONSTRAINT visit_status_id_visits_fkey,
+ADD CONSTRAINT visit_status_id_visits_fkey
+        FOREIGN KEY (id_visits) REFERENCES visits(id)
+             MATCH FULL ON DELETE CASCADE;
