@@ -3,6 +3,6 @@ import { getQuestion, validateAnswer } from './controller.js';
 const router = Router();
 
 router.get('/recovery/:cc', getQuestion);
-router.put('/recovery/:cc', validateAnswer);
+router.put('/recovery/validate', validateAnswer);
 
 export default router;
