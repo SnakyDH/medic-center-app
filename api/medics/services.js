@@ -23,6 +23,7 @@ class Medic {
       VALUES (${cc},'${name}','${password}','${phone}','${email}',${this.role});`
     );
     const data = await speciality.getSpecialityT(specialityTitle);
+    console.log(data);
     const id_especiality = data.rows[0].id;
     await pool.query(
       `INSERT INTO doctors (cc_user,id_specialties)

@@ -14,5 +14,11 @@ class Admin {
     SELECT u.cc, u.name, u.phone, u.email, r.role FROM users as u join user_role as r on(u.id_user_role=r.id)
       WHERE ${cc}=u.cc`);
   }
+  async updateOne(cc, newUser) {
+    const { name, phone, email } = newUser;
+    await pool.query(
+      `UPDATE users	SET name='${name}', phone='${phone}', email='${email}' WHERE cc=${cc};`
+    );
+  }
 }
 export default Admin;
