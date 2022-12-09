@@ -1,4 +1,4 @@
-import { pool } from '../utils/dbConnection.js';
+import { pool } from '../../utils/dbConnection.js';
 
 class User {
   async findOne(cc) {
@@ -8,6 +8,13 @@ class User {
     JOIN user_role as r
     ON (u.id_user_role=r.id)
     WHERE u.cc=${cc};
+    `);
+  }
+  async updatePassword(cc, password) {
+    await pool.query(`
+    UPDATE users
+    SET password=${password}
+    WHERE cc=${cc};
     `);
   }
 }

@@ -61,7 +61,7 @@ CREATE TABLE specialties(
         PRIMARY KEY(id)
 );
 
-insert into specialties (speciality) values ('pediatria'),('medicina interna'),('urologia'),('neurología'),('hematologia'),('hepatologia'),('oncologia'),('neumologia'),('cardiologia'),('psiquiatria');
+insert into specialties (speciality) values ('pediatria'),('medicina interna'),('urologia'),('neurología'),('hematologia'),('hepatologia'),('ginecologia'),('neumologia'),('cardiologia'),('psiquiatria');
 
 CREATE TABLE doctors(
         cc_user int not null,

@@ -1,5 +1,5 @@
 import { checkPass } from '../../utils/password.js';
-import User from '../../Services/User.js';
+import User from '../users/services.js';
 
 const user = new User();
 
