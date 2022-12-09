@@ -1,5 +1,5 @@
 import { checkPass } from '../../utils/password.js';
-import User from '../../Services/User.js';
+import User from '../users/services.js';
 
 const user = new User();
 
@@ -19,7 +19,7 @@ export const verifyLogin = async (req, res, next) => {
     console.log('ESTOY EN EL ERRROR :C');
     next(error);
   }
-    /*
+  /*
   const { cc, password } = req.body;
   const aUser = await user.findOne(cc);
   const userDB = aUser.rows[0];

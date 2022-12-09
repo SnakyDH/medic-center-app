@@ -1,8 +1,6 @@
 import { pool } from '../../utils/dbConnection.js';
 import Speciality from '../../services/Speciality.js';
-import User from '../../services/User.js';
 import Recovery from '../recovery/services.js';
-const user = new User();
 const speciality = new Speciality();
 const recovery = new Recovery();
 class Medic {
