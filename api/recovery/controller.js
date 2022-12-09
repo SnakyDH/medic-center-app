@@ -20,7 +20,8 @@ export const getQuestion = async (req, res) => {
 };
 export const validateAnswer = async (req, res) => {
   try {
-    const { cc, answer } = req.body;
+    const { cc } = req.params;
+    const { answer } = req.body;
     const dataDB = await recovery.findOne(cc);
     let answerDB = dataDB.rows[0].answer;
     const isMatch = await checkPass(answer, answerDB);
