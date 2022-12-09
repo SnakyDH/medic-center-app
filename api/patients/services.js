@@ -1,5 +1,5 @@
 import { pool } from '../../utils/dbConnection.js';
-import Recovery from '../../services/Recovery.password.js';
+import Recovery from '../recovery/services.js';
 const recovery = new Recovery();
 class Patient {
   constructor() {

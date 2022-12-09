@@ -1,4 +1,4 @@
-import { pool } from '../utils/dbConnection.js';
+import { pool } from '../../utils/dbConnection.js';
 class Recovery {
   async insertOne({ cc, question, answer }) {
     await pool.query(
