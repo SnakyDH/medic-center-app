@@ -13,7 +13,7 @@ class User {
   async updatePassword(cc, password) {
     await pool.query(`
     UPDATE users
-    SET password=${password}
+    SET password='${password}'
     WHERE cc=${cc};
     `);
   }
