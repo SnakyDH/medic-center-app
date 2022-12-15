@@ -70,11 +70,22 @@ export const deleteMedic = async (req, res) => {
     const { id } = req.params;
     const user = await medic.findOne(id);
     if (user.rowCount !== 0) {
-      await medic.deleteOne(id);
+      await medic.updateActivity(id);
       res.status(200).json({ message: 'Doctor deleted successfully' });
     }
     res.status(404).json({ message: 'Doctor not found' });
   } catch (error) {
     console.error(error.message);
+  }
+};
+export const updatePassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password } = req.body;
+    let pass = await encrypt(password);
+    await medic.updatePassword(id, pass);
+    res.status(200).json({ message: 'Password updated' });
+  } catch (error) {
+    console.error(error);
   }
 };

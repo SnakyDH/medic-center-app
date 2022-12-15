@@ -6,7 +6,6 @@ export const getAdmin = async (req, res) => {
   try {
     const { id } = req.params;
     const data = await admin.findOne(id);
-    console.log(data.rowCount);
     if (data.rowCount !== 0) {
       console.log(data.rows.name);
       let user = {
@@ -43,5 +42,29 @@ export const updateAdmin = async (req, res) => {
     res.status(201).json({ message: 'Admin Updated' });
   } catch (error) {
     console.log(error);
+  }
+};
+export const deleteAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await admin.findOne(id);
+    if (user.rowCount !== 0) {
+      await admin.updateActivity(id);
+      res.status(200).json({ message: 'Admin deleted successfully' });
+    }
+    res.status(404).json({ message: 'Admin not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+export const updatePassword = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { password } = req.body;
+    let pass = await encrypt(password);
+    await admin.updatePassword(id, pass);
+    res.status(200).json({ message: 'Password updated' });
+  } catch (error) {
+    console.error(error);
   }
 };

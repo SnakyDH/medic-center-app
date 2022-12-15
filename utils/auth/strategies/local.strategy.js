@@ -1,6 +1,6 @@
 import { Strategy } from 'passport-local';
 import boom from '@hapi/boom';
-import User from '../../../api/users/services.js';
+import User from '../../../services/User.js';
 import { checkPass } from '../../password.js';
 const user = new User();
 export const localStrategy = new Strategy(async (username, password, done) => {
