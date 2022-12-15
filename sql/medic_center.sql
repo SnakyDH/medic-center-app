@@ -75,6 +75,14 @@ CREATE TABLE doctors(
 );
 
 
+CREATE TABLE visit_status(
+		id serial,
+        status varchar(45) not null,
+        PRIMARY KEY(id)
+);
+
+insert into visit_status (status) values ('Solicitada'),('Efectuada'),('Cancelada');
+
 CREATE TABLE visits(
         id int2 not null,
         hour time not null,
@@ -82,6 +90,9 @@ CREATE TABLE visits(
         description varchar(45) not null,
         cc_patients int not null,
         cc_doctors int not null,
+		id_visit_status int default 1,
+	    FOREIGN KEY (id_visit_status) REFERENCES visit_status(id)
+             MATCH FULL ON UPDATE CASCADE,
         FOREIGN KEY (cc_patients) REFERENCES patients(cc_user)
              MATCH FULL ON UPDATE CASCADE,
         FOREIGN KEY (cc_doctors) REFERENCES doctors(cc_user)
@@ -89,14 +100,6 @@ CREATE TABLE visits(
         PRIMARY KEY(id)
 );
 
-
-CREATE TABLE visit_status(
-        status varchar(45) not null,
-        id_visits int2 not null,
-        FOREIGN KEY (id_visits) REFERENCES visits(id)
-             MATCH FULL ON UPDATE CASCADE,
-        PRIMARY KEY(id_visits)
-);
 
 ALTER TABLE info_password
 DROP CONSTRAINT info_password_cc_user_fkey,
@@ -125,15 +128,13 @@ ADD CONSTRAINT doctors_id_specialties_fkey
 ALTER TABLE visits
 DROP CONSTRAINT visits_cc_doctors_fkey,
 DROP CONSTRAINT visits_cc_patients_fkey,
+DROP CONSTRAINT visits_id_visit_status_fkey,
 ADD CONSTRAINT visits_cc_patients_fkey
         FOREIGN KEY (cc_patients) REFERENCES patients(cc_user)
              MATCH FULL ON DELETE CASCADE,
 ADD CONSTRAINT visits_cc_doctors_fkey
         FOREIGN KEY (cc_doctors) REFERENCES doctors(cc_user)
-             MATCH FULL ON DELETE CASCADE;
-
-ALTER TABLE visit_status
-DROP CONSTRAINT visit_status_id_visits_fkey,
-ADD CONSTRAINT visit_status_id_visits_fkey
-        FOREIGN KEY (id_visits) REFERENCES visits(id)
+             MATCH FULL ON DELETE CASCADE,
+ADD CONSTRAINT visits_id_visit_status_fkey
+        FOREIGN KEY (id_visit_status) REFERENCES visit_status(id)
              MATCH FULL ON DELETE CASCADE;
