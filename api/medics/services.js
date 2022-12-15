@@ -61,14 +61,6 @@ class Medic {
       `UPDATE users	SET name='${name}', phone='${phone}', email='${email}' WHERE cc=${cc};`
     );
   }
-  async deleteOne(cc) {
-    await pool.query(`
-    DELETE FROM doctors WHERE cc_user=${cc};
-    `);
-    await pool.query(`
-    DELETE FROM users WHERE cc=${cc};
-    `);
-  }
 }
 
 export default Medic;

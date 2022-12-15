@@ -17,5 +17,12 @@ class User {
     WHERE cc=${cc};
     `);
   }
+  async updateActivity(cc) {
+    await pool.query(`
+    UPDATE users
+    SET activity=${false}
+    WHERE cc=${cc};
+    `);
+  }
 }
 export default User;

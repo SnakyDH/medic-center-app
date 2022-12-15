@@ -18,6 +18,7 @@ CREATE TABLE users(
         phone varchar(10) not null,
         email varchar(45) not null,
 	      id_user_role int not null,
+        activity boolean DEFAULT true,
         FOREIGN KEY (id_user_role) REFERENCES user_role(id)
              MATCH FULL ON UPDATE CASCADE,
         PRIMARY KEY(cc)
@@ -97,27 +98,27 @@ CREATE TABLE visit_status(
         PRIMARY KEY(id_visits)
 );
 
-ALTER TABLE info_password 
+ALTER TABLE info_password
 DROP CONSTRAINT info_password_cc_user_fkey,
-ADD CONSTRAINT info_password_cc_user_fkey 
-	FOREIGN KEY (cc_user) 
-	REFERENCES users(cc) 
+ADD CONSTRAINT info_password_cc_user_fkey
+	FOREIGN KEY (cc_user)
+	REFERENCES users(cc)
 	MATCH FULL ON DELETE CASCADE;
 
-ALTER TABLE users 
+ALTER TABLE users
 DROP CONSTRAINT users_id_user_role_fkey,
-ADD CONSTRAINT users_id_user_role_fkey 
-	FOREIGN KEY (id_user_role) 
+ADD CONSTRAINT users_id_user_role_fkey
+	FOREIGN KEY (id_user_role)
 	REFERENCES user_role(id)
         MATCH FULL ON DELETE CASCADE;
 
-ALTER TABLE doctors 
-DROP CONSTRAINT doctors_cc_user_fkey, 
-DROP CONSTRAINT doctors_id_specialties_fkey, 
-ADD CONSTRAINT doctors_cc_user_fkey 
+ALTER TABLE doctors
+DROP CONSTRAINT doctors_cc_user_fkey,
+DROP CONSTRAINT doctors_id_specialties_fkey,
+ADD CONSTRAINT doctors_cc_user_fkey
 	FOREIGN KEY (cc_user) REFERENCES users(cc)
         MATCH FULL ON DELETE CASCADE,
-ADD CONSTRAINT doctors_id_specialties_fkey 
+ADD CONSTRAINT doctors_id_specialties_fkey
         FOREIGN KEY (id_specialties) REFERENCES specialties(id)
         MATCH FULL ON DELETE CASCADE;
 
