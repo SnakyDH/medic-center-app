@@ -11,7 +11,7 @@ export const verifyLogin = async (req, res, next) => {
       });
     }
   } catch (error) {
-    console.log('ESTOY EN EL ERRROR :C');
+    console.error('ESTOY EN EL ERRROR :C');
     next(error);
   }
 };

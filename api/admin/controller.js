@@ -7,7 +7,6 @@ export const getAdmin = async (req, res) => {
     const { id } = req.params;
     const data = await admin.findOne(id);
     if (data.rowCount !== 0) {
-      console.log(data.rows.name);
       let user = {
         cc: data.rows[0].cc,
         name: data.rows[0].name,
@@ -41,7 +40,7 @@ export const updateAdmin = async (req, res) => {
     await admin.updateOne(id, user);
     res.status(201).json({ message: 'Admin Updated' });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 export const deleteAdmin = async (req, res) => {
