@@ -47,7 +47,6 @@ export const createMedics = async (req, res) => {
   const user = req.body;
   user.password = pass;
   user.answer = ans;
-  console.log(user);
   await medic.insertOne(user);
   res.status(201).json({ message: 'Doctor Created successfully' });
 };
@@ -87,5 +86,14 @@ export const updatePassword = async (req, res) => {
     res.status(200).json({ message: 'Password updated' });
   } catch (error) {
     console.error(error);
+  }
+};
+export const getMedicsBySpeciality = async (req, res) => {
+  const { speciality } = req.params;
+  const data = await medic.findBySpeciality(speciality);
+  if (data.rowCount !== 0) {
+    res.status(200).json(data.rows);
+  } else {
+    res.status(404).json({ message: 'Medics not found' });
   }
 };
