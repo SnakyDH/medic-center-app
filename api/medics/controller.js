@@ -88,3 +88,12 @@ export const updatePassword = async (req, res) => {
     console.error(error);
   }
 };
+export const getMedicsBySpeciality = async (req, res) => {
+  const { speciality } = req.params;
+  const data = await medic.findBySpeciality(speciality);
+  if (data.rowCount !== 0) {
+    res.status(200).json(data.rows);
+  } else {
+    res.status(404).json({ message: 'Medics not found' });
+  }
+};

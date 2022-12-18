@@ -42,6 +42,19 @@ class Medic extends User {
       where ${cc}=u.cc;`
     );
   }
+  async findBySpeciality(speciality) {
+    return await pool.query(
+      `
+      SELECT u.cc, u.name, u.phone, u.email, s.speciality
+      FROM users as u
+      JOIN doctors as d
+      ON (u.cc=d.cc_user)
+      JOIN specialties as s
+      ON (d.id_specialties=s.id)
+      WHERE s.speciality='${speciality}';
+      `
+    );
+  }
   async findAll() {
     return await pool.query(
       `SELECT u.cc, u.name, u.phone, u.email, s.speciality
