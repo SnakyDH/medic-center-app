@@ -37,3 +37,29 @@ export const getAppointmentsPatients = async (req, res) => {
     console.error(error.message);
   }
 };
+
+export const getPreviouslyAppointmentsMedic = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await appointment.findAllPreviouslyMedic(id);
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getPreviouslyAppointmentsPatient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await appointment.findAllPreviouslyPatient(id);
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
