@@ -48,7 +48,7 @@ CREATE TABLE patients(
 
 
 CREATE TABLE clinic_history(
-        id int2 not null,
+        id serial not null,
         cc_patients int not null,
         FOREIGN KEY (cc_patients) REFERENCES patients(cc_user)
              MATCH FULL ON UPDATE CASCADE,
@@ -83,11 +83,12 @@ CREATE TABLE visit_status(
 
 insert into visit_status (status) values ('Solicitada'),('Efectuada'),('Cancelada');
 
+
 CREATE TABLE visits(
-        id int2 not null,
+        id serial not null,
         hour time not null,
         date date not null,
-        description varchar(45) not null,
+        description varchar(45) default null,
         cc_patients int not null,
         cc_doctors int not null,
 		id_visit_status int default 1,
