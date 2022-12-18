@@ -79,5 +79,18 @@ class Appointment {
         where ${cc} = d.cc_user and us.activity=true and v.date < current_date;`
     );
   }
+
+  async findOne(id) {
+    return await pool.query(
+      `
+        select v.id, v.hour, v.date, us.name, us.cc, v.description, s.status
+        from visits as v
+        JOIN visit_status as s
+        ON (v.id_visit_status=s.id)
+		    JOIN users as us
+		    ON (us.cc=v.cc_patients)
+        where ${id} = v.id;`
+    );
+  }
 }
 export default Appointment;
