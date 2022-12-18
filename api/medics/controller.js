@@ -47,7 +47,6 @@ export const createMedics = async (req, res) => {
   const user = req.body;
   user.password = pass;
   user.answer = ans;
-  console.log(user);
   await medic.insertOne(user);
   res.status(201).json({ message: 'Doctor Created successfully' });
 };
