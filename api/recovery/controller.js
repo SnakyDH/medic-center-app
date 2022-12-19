@@ -9,6 +9,7 @@ export const getQuestion = async (req, res) => {
       const info = {
         cc: data.rows[0].cc_user,
         question: data.rows[0].question,
+        role: data.rows[0].role,
       };
       res.status(200).json(info);
     } else {
