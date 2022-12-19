@@ -1,7 +1,8 @@
 import Patient from './services.js';
 import { encrypt } from '../../utils/password.js';
+import History from '../historyClinic/services.js';
 const patient = new Patient();
-
+const history = new History();
 export const getPatients = async (req, res) => {
   const allPatients = await patient.findAll();
   res.status(200).json(allPatients.rows);
@@ -30,12 +31,14 @@ export const getPatient = async (req, res) => {
   }
 };
 export const createPatients = async (req, res) => {
+  const { cc } = req.body;
   let pass = await encrypt(req.body.password);
   let ans = await encrypt(req.body.answer);
   const user = req.body;
   user.password = pass;
   user.answer = ans;
   await patient.insertOne(user);
+  await history.insertOne(cc);
   res.status(201).json({ message: 'Patient created successfully' });
 };
 export const updatePatient = async (req, res) => {
