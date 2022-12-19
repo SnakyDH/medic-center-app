@@ -4,17 +4,31 @@ const appointment = new Appointment();
 
 export const createAppointment = async (req, res) => {
   try {
-    const data = await appointment.findAppointmentsCountByMedic(
-      req.body.cc_doctors
+    const { hour, date, cc_patients, cc_doctors } = req.body;
+    const isMatch = await appointment.validate(
+      hour,
+      date,
+      cc_patients,
+      cc_doctors
     );
-    if (data.rows[0].count < appointment.maxDailyAppointmentsDoc) {
-      const { hour, date, cc_patients, cc_doctors } = req.body;
-      await appointment.insertOne(hour, date, cc_patients, cc_doctors);
-      res.status(201).json({ message: 'Appointment Created successfully' });
+    if (isMatch.rows[0].count == 0) {
+      const data = await appointment.findAppointmentsCountByMedic(
+        cc_doctors,
+        date
+      );
+      console.log(data.rows[0].count);
+      if (data.rows[0].count < appointment.maxDailyAppointmentsDoc) {
+        await appointment.insertOne(hour, date, cc_patients, cc_doctors);
+        res.status(201).json({ message: 'Appointment Created successfully' });
+      } else {
+        res.status(401).json({
+          message: 'Appointment not created, you has 10 visits today',
+        });
+      }
     } else {
-      res
-        .status(400)
-        .json({ message: 'Appointment not created, you has 10 visits today' });
+      res.status(406).json({
+        message: 'there is already an appointment at that time',
+      });
     }
   } catch (error) {
     console.error(error.message);

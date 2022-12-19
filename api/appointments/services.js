@@ -5,15 +5,24 @@ class Appointment {
   constructor() {
     this.maxDailyAppointmentsDoc = 10;
   }
+
+  async validate(hour, date, cc_patients, cc_doctors) {
+    return await pool.query(
+      `select count(id) from visits v
+            where '${hour}' = v.hour and v.date ='${date}'
+            and (v.cc_doctors=${cc_doctors} or v.cc_patients=${cc_patients});`
+    );
+  }
+
   async insertOne(hour, date, cc_patients, cc_doctors) {
     await pool.query(
       `INSERT INTO visits (hour, date, cc_patients, cc_doctors)
       VALUES ('${hour}','${date}',${cc_patients},${cc_doctors});`
     );
   }
-  async findAppointmentsCountByMedic(cc) {
+  async findAppointmentsCountByMedic(cc, date) {
     return await pool.query(
-      `select count(id) from visits where cc_doctors=${cc} and date=current_date`
+      `select count(id) from visits where cc_doctors=${cc} and date='${date}';`
     );
   }
   async findAllAppointmentsM(cc) {
