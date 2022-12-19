@@ -11,6 +11,18 @@ class Appointment {
       VALUES ('${hour}','${date}',${cc_patients},${cc_doctors});`
     );
   }
+  async findByStatus(status) {
+    const data = await pool.query(
+      `select id from visit_status where status='${status}';`
+    );
+    return data.rows[0].id;
+  }
+  async updateOne(id, description, status) {
+    const id_status = await this.findByStatus(status);
+    await pool.query(
+      `UPDATE visits SET description='${description}', id_visit_status=${id_status} WHERE id=${id};`
+    );
+  }
   async findAppointmentsCountByMedic(cc) {
     return await pool.query(
       `select count(id) from visits where cc_doctors=${cc} and date=current_date`

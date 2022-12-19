@@ -20,7 +20,16 @@ export const createAppointment = async (req, res) => {
     console.error(error.message);
   }
 };
-
+export const updateAppointment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { description, status } = req.body;
+    await appointment.updateOne(id, description, status);
+    res.status(200).json({ message: 'Appointment updated successfully' });
+  } catch (error) {
+    console.error(error);
+  }
+};
 export const getAppointmentsMedics = async (req, res) => {
   try {
     const { id } = req.params;

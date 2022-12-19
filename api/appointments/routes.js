@@ -17,11 +17,13 @@ import {
   getAppointmentsCanceledBiweekly,
   getAppointmentsCanceledMonthly,
   getAppointmentsCanceledBiannual,
+  updateAppointment,
 } from './controller.js';
 
 const router = Router();
 
 router.post('/appointments', createAppointment);
+router.put('/appointment/:id', updateAppointment);
 router.get('/appointments/medics/:id', getAppointmentsMedics);
 router.get('/appointments/patients/:id', getAppointmentsPatients);
 router.get('/appointments/medics/:id/prev', getPreviouslyAppointmentsMedic);
