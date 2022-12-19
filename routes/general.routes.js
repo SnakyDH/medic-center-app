@@ -5,6 +5,7 @@ import docRoutes from '../api/medics/routes.js';
 import authRoutes from '../api/auth/routes.js';
 import recoveryRoutes from '../api/recovery/routes.js';
 import appointmentRoutes from '../api/appointments/routes.js';
+import historyRoutes from '../api/historyClinic/routes.js';
 const router = Router();
 
 router.use(
@@ -13,7 +14,8 @@ router.use(
   adminRoutes,
   docRoutes,
   recoveryRoutes,
-  appointmentRoutes
+  appointmentRoutes,
+  historyRoutes
 );
 router.use('/auth/', authRoutes);
 export default router;

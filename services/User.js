@@ -12,7 +12,7 @@ class User {
   }
   async findOne(cc) {
     return await pool.query(`
-    SELECT u.cc, u.name, u.phone, u.email, r.role
+    SELECT u.cc, u.name, u.phone, u.email, r.role,u.password
     FROM Users as u
     JOIN user_role as r
     ON (u.id_user_role=r.id)

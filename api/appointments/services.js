@@ -2,11 +2,18 @@ import { pool } from '../../utils/dbConnection.js';
 //import VisitStatus from '../../services/VisitStatus.js';
 //const objVisit = new VisitStatus();
 class Appointment {
-  constructor() {}
+  constructor() {
+    this.maxDailyAppointmentsDoc = 10;
+  }
   async insertOne(hour, date, cc_patients, cc_doctors) {
     await pool.query(
       `INSERT INTO visits (hour, date, cc_patients, cc_doctors)
       VALUES ('${hour}','${date}',${cc_patients},${cc_doctors});`
+    );
+  }
+  async findAppointmentsCountByMedic(cc) {
+    return await pool.query(
+      `select count(id) from visits where cc_doctors=${cc} and date=current_date`
     );
   }
   async findAllAppointmentsM(cc) {

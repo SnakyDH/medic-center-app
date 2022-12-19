@@ -4,9 +4,18 @@ const appointment = new Appointment();
 
 export const createAppointment = async (req, res) => {
   try {
-    const { hour, date, cc_patients, cc_doctors } = req.body;
-    await appointment.insertOne(hour, date, cc_patients, cc_doctors);
-    res.status(201).json({ message: 'Appointment Created successfully' });
+    const data = await appointment.findAppointmentsCountByMedic(
+      req.body.cc_doctors
+    );
+    if (data.rows[0].count < appointment.maxDailyAppointmentsDoc) {
+      const { hour, date, cc_patients, cc_doctors } = req.body;
+      await appointment.insertOne(hour, date, cc_patients, cc_doctors);
+      res.status(201).json({ message: 'Appointment Created successfully' });
+    } else {
+      res
+        .status(400)
+        .json({ message: 'Appointment not created, you has 10 visits today' });
+    }
   } catch (error) {
     console.error(error.message);
   }

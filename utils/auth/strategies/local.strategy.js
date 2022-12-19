@@ -14,7 +14,6 @@ export const localStrategy = new Strategy(async (username, password, done) => {
     if (!isMatch) {
       done(boom.unauthorized, false);
     }
-
     done(null, userDB.rows[0]);
   } catch (error) {
     done(error, false);
