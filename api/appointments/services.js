@@ -92,5 +92,24 @@ class Appointment {
         where ${id} = v.id;`
     );
   }
+
+  async findAllAppointments() {
+    return await pool.query(
+      `select v.id, v.hour, v.date, use.name, sp.speciality, us.name as paciente, s.status
+        from visits as v
+        JOIN visit_status as s
+        ON (v.id_visit_status=s.id)
+        JOIN doctors as d
+        ON (d.cc_user=v.cc_doctors)
+        JOIN patients as p
+        ON (p.cc_user=v.cc_patients)
+		    JOIN specialties as sp
+		    ON (d.id_specialties=sp.id)
+		    JOIN users as us
+		    ON (us.cc=p.cc_user)
+		    JOIN users as use
+		    ON (use.cc=d.cc_user)`
+    );
+  }
 }
 export default Appointment;

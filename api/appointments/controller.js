@@ -85,3 +85,15 @@ export const getAppointment = async (req, res) => {
     console.error(error.message);
   }
 };
+
+export const getAppointments = async (req, res) => {
+  try {
+    const data = await appointment.findAllAppointments();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
