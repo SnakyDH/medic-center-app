@@ -106,3 +106,63 @@ export const getAppointments = async (req, res) => {
     console.error(error.message);
   }
 };
+
+export const getAppointmentsRealized = async (req, res) => {
+  try {
+    const data = await appointment.findApointmentsRealized();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getAppointmentsRealizedWeekly = async (req, res) => {
+  try {
+    const data = await appointment.findApointmentsRealizedWeekly();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getAppointmentsRealizedBiweekly = async (req, res) => {
+  try {
+    const data = await appointment.findApointmentsRealizedBiweekly();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getAppointmentsRealizedMonthly = async (req, res) => {
+  try {
+    const data = await appointment.findApointmentsRealizedMonthly();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getAppointmentsRealizedBiannual = async (req, res) => {
+  try {
+    const data = await appointment.findApointmentsRealizedBiannual();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
