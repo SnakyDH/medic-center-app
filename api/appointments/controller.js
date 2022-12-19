@@ -166,3 +166,63 @@ export const getAppointmentsRealizedBiannual = async (req, res) => {
     console.error(error.message);
   }
 };
+
+export const getAppointmentsCanceled = async (req, res) => {
+  try {
+    const data = await appointment.findApointmentsCanceled();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getAppointmentsCanceledWeekly = async (req, res) => {
+  try {
+    const data = await appointment.findApointmentsCanceledWeekly();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getAppointmentsCanceledBiweekly = async (req, res) => {
+  try {
+    const data = await appointment.findApointmentsCanceledBiweekly();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getAppointmentsCanceledMonthly = async (req, res) => {
+  try {
+    const data = await appointment.findApointmentsCanceledMonthly();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+export const getAppointmentsCanceledBiannual = async (req, res) => {
+  try {
+    const data = await appointment.findApointmentsCanceledBiannual();
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    }
+    res.status(404).json({ message: 'Appointments not found' });
+  } catch (error) {
+    console.error(error.message);
+  }
+};

@@ -218,5 +218,105 @@ class Appointment {
         where s.status='Efectuada' and v.date <= current_date and v.date >= current_date -180;`
     );
   }
+
+  async findApointmentsCanceled() {
+    return await pool.query(
+      `select v.id, v.hour, v.date, use.name, sp.speciality, us.name as paciente, s.status
+        from visits as v
+        JOIN visit_status as s
+        ON (v.id_visit_status=s.id)
+        JOIN doctors as d
+        ON (d.cc_user=v.cc_doctors)
+        JOIN patients as p
+        ON (p.cc_user=v.cc_patients)
+		    JOIN specialties as sp
+		    ON (d.id_specialties=sp.id)
+		    JOIN users as us
+		    ON (us.cc=p.cc_user)
+		    JOIN users as use
+		    ON (use.cc=d.cc_user)
+        where s.status='Cancelada';`
+    );
+  }
+
+  async findApointmentsCanceledWeekly() {
+    return await pool.query(
+      `select v.id, v.hour, v.date, use.name, sp.speciality, us.name as paciente, s.status
+        from visits as v
+        JOIN visit_status as s
+        ON (v.id_visit_status=s.id)
+        JOIN doctors as d
+        ON (d.cc_user=v.cc_doctors)
+        JOIN patients as p
+        ON (p.cc_user=v.cc_patients)
+		    JOIN specialties as sp
+		    ON (d.id_specialties=sp.id)
+		    JOIN users as us
+		    ON (us.cc=p.cc_user)
+		    JOIN users as use
+		    ON (use.cc=d.cc_user)
+        where s.status='Cancelada' and v.date <= current_date and v.date >= current_date -7;`
+    );
+  }
+
+  async findApointmentsCanceledBiweekly() {
+    return await pool.query(
+      `select v.id, v.hour, v.date, use.name, sp.speciality, us.name as paciente, s.status
+        from visits as v
+        JOIN visit_status as s
+        ON (v.id_visit_status=s.id)
+        JOIN doctors as d
+        ON (d.cc_user=v.cc_doctors)
+        JOIN patients as p
+        ON (p.cc_user=v.cc_patients)
+		    JOIN specialties as sp
+		    ON (d.id_specialties=sp.id)
+		    JOIN users as us
+		    ON (us.cc=p.cc_user)
+		    JOIN users as use
+		    ON (use.cc=d.cc_user)
+        where s.status='Cancelada' and v.date <= current_date and v.date >= current_date -15;`
+    );
+  }
+
+  async findApointmentsCanceledMonthly() {
+    return await pool.query(
+      `select v.id, v.hour, v.date, use.name, sp.speciality, us.name as paciente, s.status
+        from visits as v
+        JOIN visit_status as s
+        ON (v.id_visit_status=s.id)
+        JOIN doctors as d
+        ON (d.cc_user=v.cc_doctors)
+        JOIN patients as p
+        ON (p.cc_user=v.cc_patients)
+		    JOIN specialties as sp
+		    ON (d.id_specialties=sp.id)
+		    JOIN users as us
+		    ON (us.cc=p.cc_user)
+		    JOIN users as use
+		    ON (use.cc=d.cc_user)
+        where s.status='Cancelada' and v.date <= current_date and v.date >= current_date -30;`
+    );
+  }
+
+  async findApointmentsCanceledBiannual() {
+    return await pool.query(
+      `select v.id, v.hour, v.date, use.name, sp.speciality, us.name as paciente, s.status
+        from visits as v
+        JOIN visit_status as s
+        ON (v.id_visit_status=s.id)
+        JOIN doctors as d
+        ON (d.cc_user=v.cc_doctors)
+        JOIN patients as p
+        ON (p.cc_user=v.cc_patients)
+		    JOIN specialties as sp
+		    ON (d.id_specialties=sp.id)
+		    JOIN users as us
+		    ON (us.cc=p.cc_user)
+		    JOIN users as use
+		    ON (use.cc=d.cc_user)
+        where s.status='Cancelada' and v.date <= current_date and v.date >= current_date -180;`
+    );
+  }
 }
 export default Appointment;
