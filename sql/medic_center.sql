@@ -81,7 +81,7 @@ CREATE TABLE visit_status(
         PRIMARY KEY(id)
 );
 
-insert into visit_status (status) values ('solicitada'),('efectuada'),('cancelada');
+insert into visit_status (status) values ('Solicitada'),('Efectuada'),('Cancelada');
 
 
 CREATE TABLE visits(
