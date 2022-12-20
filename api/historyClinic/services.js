@@ -13,7 +13,7 @@ class History {
     ON (c.cc_patients = v.cc_patients)
     JOIN visit_status as vs
     ON (v.id_visit_status = vs.id)
-    WHERE id=${id} and (vs.status='Efectuada' or vs.status='Canceladas');
+    WHERE c.cc_patients=${id} and (vs.status='Efectuada' or vs.status='Canceladas');
     `);
   }
   async insertOne(cc) {

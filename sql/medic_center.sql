@@ -88,7 +88,7 @@ CREATE TABLE visits(
         id serial not null,
         hour time not null,
         date date not null,
-        description varchar(45) default null,
+        description varchar(1500) default null,
         cc_patients int not null,
         cc_doctors int not null,
 		id_visit_status int default 1,
