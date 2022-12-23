@@ -9,9 +9,13 @@ class Recovery {
   async findOne(cc) {
     return await pool.query(
       `
-      SELECT cc_user, question, answer
-	    FROM info_password
-      WHERE cc_user=${cc};`
+      	SELECT i.cc_user, i.question, i.answer, r.role
+	      FROM info_password as i
+	      JOIN users as u
+	      ON (i.cc_user=u.cc)
+	      JOIN user_role as r
+	      ON (r.id=u.id_user_role)
+        WHERE cc_user=${cc};`
     );
   }
 }

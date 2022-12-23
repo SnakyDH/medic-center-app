@@ -1,8 +1,3 @@
-import { checkPass } from '../../utils/password.js';
-import User from '../users/services.js';
-
-const user = new User();
-
 export const verifyLogin = async (req, res, next) => {
   try {
     const aUser = req.user;
@@ -16,20 +11,7 @@ export const verifyLogin = async (req, res, next) => {
       });
     }
   } catch (error) {
-    console.log('ESTOY EN EL ERRROR :C');
+    console.error('ESTOY EN EL ERRROR :C');
     next(error);
   }
-  /*
-  const { cc, password } = req.body;
-  const aUser = await user.findOne(cc);
-  const userDB = aUser.rows[0];
-  const isMatch = await checkPass(password, userDB.password);
-  if (!isMatch) {
-  } else {
-    res.status(200).json({
-      id: userDB.cc,
-      name: userDB.name,
-      role: userDB.role,
-    });
-  } */
 };

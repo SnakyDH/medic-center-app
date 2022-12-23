@@ -1,11 +1,12 @@
 import { pool } from '../../utils/dbConnection.js';
 import Speciality from '../../services/Speciality.js';
 import Recovery from '../recovery/services.js';
+import User from '../../services/User.js';
 const speciality = new Speciality();
 const recovery = new Recovery();
-class Medic {
+class Medic extends User {
   constructor() {
-    this.role = 2;
+    super(2);
     this.max_medics = 10;
   }
   async insertOne({
@@ -18,10 +19,7 @@ class Medic {
     question,
     answer,
   }) {
-    await pool.query(
-      `INSERT INTO users (cc, name, password, phone, email, id_user_role)
-      VALUES (${cc},'${name}','${password}','${phone}','${email}',${this.role});`
-    );
+    await super.insertOne({ cc, name, password, phone, email });
     const data = await speciality.getSpecialityT(specialityTitle);
     const id_especiality = data.rows[0].id;
     await pool.query(
@@ -44,6 +42,19 @@ class Medic {
       where ${cc}=u.cc;`
     );
   }
+  async findBySpeciality(speciality) {
+    return await pool.query(
+      `
+      SELECT u.cc, u.name, u.phone, u.email, s.speciality
+      FROM users as u
+      JOIN doctors as d
+      ON (u.cc=d.cc_user)
+      JOIN specialties as s
+      ON (d.id_specialties=s.id)
+      WHERE s.speciality='${speciality}';
+      `
+    );
+  }
   async findAll() {
     return await pool.query(
       `SELECT u.cc, u.name, u.phone, u.email, s.speciality
@@ -53,20 +64,6 @@ class Medic {
       JOIN specialties as s
       ON (d.id_specialties=s.id);`
     );
-  }
-  async updateOne(cc, newUser) {
-    const { name, phone, email } = newUser;
-    await pool.query(
-      `UPDATE users	SET name='${name}', phone='${phone}', email='${email}' WHERE cc=${cc};`
-    );
-  }
-  async deleteOne(cc) {
-    await pool.query(`
-    DELETE FROM doctors WHERE cc_user=${cc};
-    `);
-    await pool.query(`
-    DELETE FROM users WHERE cc=${cc};
-    `);
   }
 }
 

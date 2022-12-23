@@ -1,9 +1,10 @@
 import { pool } from '../../utils/dbConnection.js';
 import Recovery from '../recovery/services.js';
+import User from '../../services/User.js';
 const recovery = new Recovery();
-class Patient {
+class Patient extends User {
   constructor() {
-    this.role = 3;
+    super(3);
   }
   async insertOne({
     cc,
@@ -18,10 +19,7 @@ class Patient {
     question,
     answer,
   }) {
-    await pool.query(
-      `INSERT INTO users (cc, name, password, phone, email, id_user_role)
-      VALUES (${cc},'${name}','${password}','${phone}','${email}',${this.role});`
-    );
+    await super.insertOne({ cc, name, password, phone, email });
     await pool.query(
       `INSERT INTO patients (cc_user, age, weight, height, birth)
     VALUES (${cc},${age},${weight},${height},'${birth}');`
@@ -46,22 +44,12 @@ class Patient {
     );
   }
   async updateOne(id, newUser) {
-    const { name, phone, email, weight, height } = newUser;
+    const { weight, height } = newUser;
     await pool.query(
       `UPDATE patients
 	    SET weight=${weight}, height=${height} WHERE cc_user=${id};`
     );
-    await pool.query(
-      `UPDATE users	SET name='${name}', phone='${phone}', email='${email}' WHERE cc=${id};`
-    );
-  }
-  async deleteOne(cc) {
-    await pool.query(`
-    DELETE FROM patients WHERE cc_user=${cc}
-    `);
-    await pool.query(`
-    DELETE FROM users WHERE cc=${cc};
-    `);
+    await super.updateOne(id, newUser);
   }
 }
 
