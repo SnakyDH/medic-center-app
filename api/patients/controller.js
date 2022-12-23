@@ -31,15 +31,19 @@ export const getPatient = async (req, res) => {
   }
 };
 export const createPatients = async (req, res) => {
-  const { cc } = req.body;
-  let pass = await encrypt(req.body.password);
-  let ans = await encrypt(req.body.answer);
-  const user = req.body;
-  user.password = pass;
-  user.answer = ans;
-  await patient.insertOne(user);
-  await history.insertOne(cc);
-  res.status(201).json({ message: 'Patient created successfully' });
+  try {
+    const { cc } = req.body;
+    let pass = await encrypt(req.body.password);
+    let ans = await encrypt(req.body.answer);
+    const user = req.body;
+    user.password = pass;
+    user.answer = ans;
+    await patient.insertOne(user);
+    await history.insertOne(cc);
+    res.status(201).json({ message: 'Patient created successfully' });
+  } catch (error) {
+    console.error(error);
+  }
 };
 export const updatePatient = async (req, res) => {
   try {

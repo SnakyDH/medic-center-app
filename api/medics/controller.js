@@ -36,19 +36,23 @@ export const getMedic = async (req, res) => {
 };
 
 export const createMedics = async (req, res) => {
-  const numMed = await medic.findAll();
-  if (numMed.rowCount >= medic.max_medics) {
-    res
-      .status(304)
-      .json({ message: 'Max medics created, please delete one for continue' });
+  try {
+    const numMed = await medic.findAll();
+    if (numMed.rowCount >= medic.max_medics) {
+      res.status(304).json({
+        message: 'Max medics created, please delete one for continue',
+      });
+    }
+    let pass = await encrypt(req.body.password);
+    let ans = await encrypt(req.body.answer);
+    const user = req.body;
+    user.password = pass;
+    user.answer = ans;
+    await medic.insertOne(user);
+    res.status(201).json({ message: 'Doctor Created successfully' });
+  } catch (error) {
+    console.error(error);
   }
-  let pass = await encrypt(req.body.password);
-  let ans = await encrypt(req.body.answer);
-  const user = req.body;
-  user.password = pass;
-  user.answer = ans;
-  await medic.insertOne(user);
-  res.status(201).json({ message: 'Doctor Created successfully' });
 };
 export const updateMedic = async (req, res) => {
   try {
@@ -89,11 +93,15 @@ export const updatePassword = async (req, res) => {
   }
 };
 export const getMedicsBySpeciality = async (req, res) => {
-  const { speciality } = req.params;
-  const data = await medic.findBySpeciality(speciality);
-  if (data.rowCount !== 0) {
-    res.status(200).json(data.rows);
-  } else {
-    res.status(404).json({ message: 'Medics not found' });
+  try {
+    const { speciality } = req.params;
+    const data = await medic.findBySpeciality(speciality);
+    if (data.rowCount !== 0) {
+      res.status(200).json(data.rows);
+    } else {
+      res.status(404).json({ message: 'Medics not found' });
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
